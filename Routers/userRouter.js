@@ -6,6 +6,12 @@ const authController = require('./../Controllers/AuthController');
 
 app.use(express.json());
 
+app.use((req, res, next) => {
+    console.log(req.originalUrl);
+    console.log("Hello from the middleware 👋");
+    next();
+    });
+
 router.route('/').post(userController.createUser).get(userController.getAllUsers);
 router.route("/:id").get(userController.getUser)
 router.route('/signup').post(authController.singUp);

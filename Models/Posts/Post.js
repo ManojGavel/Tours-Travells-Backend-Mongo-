@@ -3,12 +3,15 @@ const mongoose = require("mongoose");
 const post = new mongoose.Schema({
   user_id: {
     type: mongoose.Schema.ObjectId,
-    ref: "users",
+    ref: "User",
     required: true,
   },
   post: {
     type: String,
     required: true,
+  },
+  Image: {
+    type: String,
   },
   post_date: {
     type: Date,
@@ -25,3 +28,4 @@ const post = new mongoose.Schema({
 });
 
 const Post = mongoose.model("posts", post);
+module.exports = Post;
