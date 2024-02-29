@@ -8,7 +8,7 @@ const multer = require("multer");
 //multer storage
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, `${__dirname}/../uploads/postImages`);
+    cb(null, `${__dirname}/../uploads/postImages  `);
   },
   filename: function (req, file, cb) {
     const ext = file.mimetype.split("/")[1];
@@ -54,8 +54,13 @@ exports.createPost = async (req, res) => {
 // Get all posts
 exports.getAllPosts = async (req, res) => {
   try {
-    const posts = await Post.find().populate("user_id");
-    res.status(200).json(posts);
+    const ImageBaseUrl = "http://localhost:3000/uploads/postImages/"
+    const posts = await Post.find().populate("user_id").lean();
+    const postsWithImageUrl = posts.map(post => ({
+      ...post,
+      imageUrl: post.Image ? ImageBaseUrl + post.Image : null
+    }));
+    res.status(200).json(postsWithImageUrl);
   } catch (err) {
     res.status(500).json(err.message);
   }
