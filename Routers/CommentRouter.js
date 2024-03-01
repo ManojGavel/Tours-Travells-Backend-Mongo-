@@ -1,7 +1,11 @@
 const commentController = require("./../Controllers/CommentController");
 const express = require("express");
+const app = express();
 const router = express.Router();
+const bodyParser = require('body-parser');
 
+app.use(express.json());
+app.use(bodyParser.json());
 router
   .route("/")
   .get(commentController.getComments)
