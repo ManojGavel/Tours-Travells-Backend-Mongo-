@@ -7,7 +7,13 @@ const commentRouter = require("./Routers/CommentRouter");
 
 // app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-// app.use(express.json());
+app.use(express.json());
+
+// app.use((req, res, next) => {
+//     console.log(req.body, req.url, req.method, req.params, req.query, req.headers);
+//     next();
+// }
+// );
 
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/posts', postRouter);
